@@ -1,10 +1,12 @@
 from app import mongo
 from bson import ObjectId
+from werkzeug.security import generate_password_hash
 
 def create_buyer(data):
     buyer = {
         "name": data.get("name"),
         "email": data.get("email"),
+        "password": generate_password_hash(data.get("password"))
     }
     result = mongo.db.buyers.insert_one(buyer)
     return {"message": "Buyer created", "id": str(result.inserted_id)}
