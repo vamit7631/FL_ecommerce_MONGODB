@@ -17,10 +17,15 @@ def getAllProductItem():
         product["_id"] = str(product["_id"])
     return products
 
-
 def getProductDetailsById(product_id):
     product = mongo.db.products.find_one({"_id": ObjectId(product_id)})
     if product:
         product["_id"] = str(product["_id"])
         return product
+    return {"error": "Product not found"}
+
+def deleteProductDetailsById(product_id):
+    response = mongo.db.products.delete_one({"_id": ObjectId(product_id)})
+    if result.deleted_count:
+        return {"message": "Product deleted"}
     return {"error": "Product not found"}

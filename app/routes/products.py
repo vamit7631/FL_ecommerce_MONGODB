@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.services.product_service import createProductItem, getAllProductItem, getProductDetailsById
+from app.services.product_service import createProductItem, getAllProductItem, getProductDetailsById, deleteProductDetailsById
 
 products_bp = Blueprint('products', __name__)
 
@@ -19,4 +19,9 @@ def getAllProducts():
 @products_bp.route('/<string:product_id>', methods=['GET'])
 def getProductItem(product_id):
     response = getProductDetailsById(product_id)
+    return jsonify(response), 200
+
+@products_bp.route('/<string:product_id>', methods=['GET'])
+def deleteProductItem(product_id):
+    response = deleteProductDetailsById(product_id)
     return jsonify(response), 200
