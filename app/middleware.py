@@ -4,7 +4,7 @@ from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity, JWTManag
 def auth_middleware(app):
     @app.before_request
     def check_authentication():
-        excluded_routes = ["/api/buyers/login"]
+        excluded_routes = ["/api/buyers/login","/api/products/"]
         if request.path in excluded_routes:
             return
 

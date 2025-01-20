@@ -18,12 +18,12 @@ def create_app():
 
     jwt.init_app(app)
 
-    auth_middleware(app)
+    # auth_middleware(app)
     # Register Blueprints
-    from app.routes import buyers_bp, sellers_bp
+    from app.routes import buyers_bp, sellers_bp, products_bp
     app.register_blueprint(buyers_bp, url_prefix="/api/buyers")
     app.register_blueprint(sellers_bp, url_prefix="/api/sellers")
-    
+    app.register_blueprint(products_bp, url_prefix="/api/products")    
 
     
     return app
