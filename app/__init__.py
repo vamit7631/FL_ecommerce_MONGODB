@@ -20,10 +20,10 @@ def create_app():
 
     # auth_middleware(app)
     # Register Blueprints
-    from app.routes import buyers_bp, sellers_bp, products_bp
+    from app.routes import buyers_bp, sellers_bp, products_bp, categories_bp
     app.register_blueprint(buyers_bp, url_prefix="/api/buyers")
     app.register_blueprint(sellers_bp, url_prefix="/api/sellers")
     app.register_blueprint(products_bp, url_prefix="/api/products")    
-
+    app.register_blueprint(categories_bp, url_prefix="/api/categories")    
     
     return app
