@@ -23,3 +23,18 @@ def getSelectedCategoryItem(category_id):
         category["_id"] = str(category["_id"])
         return category
     return {"error": "Category not found"}
+
+def updateSelectedCategoryItem(category_id, data):
+    result = mongo.db.categories.update_one(
+        {"_id": ObjectId(category_id)},
+        {"$set": data}
+    )
+    if result.matched_count:
+        return {"message": "Category updated"}
+    return {"error": "Category not found"}
+
+def deleteSelectedCategoryItem(category_id):
+    result = mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+    if result.deleted_count:
+        return {"message": "Category deleted"}
+    return {"error": "Category not found"}
