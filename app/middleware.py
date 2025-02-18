@@ -4,9 +4,14 @@ from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity, JWTManag
 def auth_middleware(app):
     @app.before_request
     def check_authentication():
-        excluded_routes = ["/api/buyers/login","/api/products/"]
-        if request.path in excluded_routes:
+        excluded_post_routes = ["/api/buyers/"]
+        excluded_routes = ["/api/buyers/login"]
+        excluded_prefixes = ["/api/products/" ]
+        if request.method == "POST" and request.path in excluded_post_routes:
             return
+        if request.path in excluded_routes or any(request.path.startswith(prefix) for prefix in excluded_prefixes):
+            return
+        
 
         print(f"Request Headers: {request.headers}") 
         try:

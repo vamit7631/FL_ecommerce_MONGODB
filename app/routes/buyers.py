@@ -24,6 +24,10 @@ def read_all():
 
 @buyers_bp.route('/<string:buyer_id>', methods=['GET'])
 def read_one(buyer_id):
+    identity = get_jwt_identity()
+    if identity != buyer_id:
+        return jsonify({"message": "Unauthorized access"}), 403
+
     response = get_buyer_by_id(buyer_id)
     return jsonify(response), 200
 
@@ -53,7 +57,6 @@ def buyerlogin():
         return jsonify({"message": "Email and password are required"}), 400
 
     token = buyer_authentication_layer(email, password)
-    print(token,"======testing3")
     if token:
         return jsonify({"access_token": token}), 200
     else:
